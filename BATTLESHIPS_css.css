@@ -1,0 +1,145 @@
+@media (min-width: 600px) {
+	body {
+		background-color: lightblue;
+	}
+	/* div#board {
+		width: 80%;
+		height: 80%;
+	} */
+}
+body {
+	background: #000000;
+	background: -webkit-radial-gradient(center, #000000, #18421a);
+	background: -moz-radial-gradient(center, #000000, #18421a);
+	background: radial-gradient(ellipse at center, #000000, #18421a);
+	color: white;
+	background-size: contain;
+	background-position: center center;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+	cursor: none;
+	user-select: none;
+}
+
+label {
+	font-size: 1rem;
+}
+
+input {
+	width: 30px;
+	height: 20px;
+	margin: 10px;
+}
+#form {
+	display: block;
+	padding: 3px;
+	background-color: green;
+	border-radius: 3px;
+	width: auto;
+}
+
+button {
+	font-size: 1rem;
+}
+#ball {
+	position: absolute;
+	background-color: red;
+	border-radius: 50%;
+	width: 30px;
+	height: 30px;
+	z-index: -1;
+	transform: translateZ(-1);
+}
+div#board {
+	background-image: url("./vectora150200035.jpg");
+	background-size: contain;
+	border: solid rgba(4, 39, 4, 0.671) 60px;
+	border-radius: 10%;
+	width: 80vw;
+	/* height: 80vw; */
+	/* max-height: 80vh; */
+	width: 450px;
+	height: 450px;
+	background-repeat: no-repeat;
+	margin-top: auto;
+	margin-left: auto;
+	margin-right: auto;
+	cursor: crosshair;
+}
+
+h1 {
+	display: block;
+	width: 200px;
+	font-family: "Shizuru";
+	color: white;
+	text-align: center;
+	font-size: 1.8rem;
+	margin: 30px auto 0px auto;
+	border: solid green 2px;
+	border-radius: 10px;
+	padding: 5px;
+}
+h4 {
+	display: block;
+	width: 200px;
+	height: 60px;
+	font-family: "Shizuru";
+	color: white;
+	text-align: center;
+	margin: 0px auto 30px auto;
+	border: solid green 2px;
+	border-radius: 10px;
+	padding: 5px;
+}
+
+table {
+	width: 80vw;
+	max-width: fit-content;
+	height: 80vw;
+	max-height: 80vh;
+}
+#board td {
+	width: 8vw;
+	height: 8vh;
+	cursor: url(./BombCursor.png), auto;
+	/* cursor: url(https://cdn-icons-png.flaticon.com/128/112/112683.png),; */
+}
+
+div#message {
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	width: 16%;
+	min-height: 70px;
+	height: 70px;
+	border: green dashed 2px;
+	overflow: hidden;
+	padding: 10px;
+	border-radius: 2rem;
+}
+div#message:hover {
+	height: auto;
+}
+
+.hit {
+	background: url(./boat.png) no-repeat;
+	background-size: contain;
+}
+.miss {
+	background: url(./miss.png) no-repeat;
+	background-size: contain;
+}
+#currentCell {
+	font-size: 1.8em;
+}
+
+table.ranking tr td {
+	border-bottom: solid white 2px;
+	border-top: solid darkgreen 4px;
+	margin: 0px;
+	font-size: 2rem;
+	/* cursor: no-drop; */
+}
