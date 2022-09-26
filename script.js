@@ -37,11 +37,9 @@ function parseGuessIndicator(guess) {
 function init() {
 	let body = document.querySelector("body");
 	body.onmousemove = ballPositioning;
-	//body.onscroll = ballPositioning;
 	var fireButton = document.getElementById("fireButton");
 	fireButton.onclick = handleFireButton;
-	var guessInput = document.getElementById("guessInput");
-	guessInput.onkeypress = handleKeyPress;
+
 	model.generateShipsLocations();
 	var guessCell = document.querySelectorAll("#board td");
 	guessCell.forEach((element) => {
@@ -49,9 +47,6 @@ function init() {
 		element.onmouseover = handleCurrentCell;
 	});
 
-	// for (var i = 0; i < guessCell.length; i++) {
-	// 	guessCell[i].onclick = handleClickCell;
-	// }
 }
 
 function handleClickCell(eventObj) {
@@ -73,13 +68,6 @@ function handleClickCell(eventObj) {
 	}
 }
 
-function handleKeyPress(e) {
-	var fireButton = document.getElementById("fireButton");
-	if (e.keyCode === 13) {
-		fireButton.click();
-		return false;
-	}
-}
 
 function handleFireButton() {
 	var guessInput = document.getElementById("guessInput");
