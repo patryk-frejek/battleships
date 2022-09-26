@@ -82,8 +82,10 @@ h1 {
 	border: solid green 0.2rem;
 	border-radius: 1rem;
 	padding: 0.5rem;
+	text-transform: uppercase;
 }
 h4 {
+	text-transform: uppercase;
 	display: block;
 	width: 20rem;
 	height: 6rem;
