@@ -1,11 +1,18 @@
-@media (min-width: 600px) {
-	body {
-		background-color: lightblue;
+*,
+*::after,
+*::before {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+html {
+	font-size: 62.5%;
+}
+
+@media only screen and (max-width: 500px) {
+	html {
+		font-size: 49%;
 	}
-	/* div#board {
-		width: 80%;
-		height: 80%;
-	} */
 }
 body {
 	background: #000000;
@@ -29,27 +36,27 @@ label {
 }
 
 input {
-	width: 30px;
-	height: 20px;
-	margin: 10px;
+	width: 3rem;
+	height: 2rem;
+	margin: 1rem;
 }
 #form {
 	display: block;
-	padding: 3px;
+	padding: 0.3rem;
 	background-color: green;
-	border-radius: 3px;
+	border-radius: 0.3rem;
 	width: auto;
 }
 
 button {
-	font-size: 1.1rem;
+	font-size: 1.5rem;
 }
 #ball {
 	position: absolute;
 	background-color: red;
 	border-radius: 50%;
-	width: 30px;
-	height: 30px;
+	width: 3rem;
+	height: 3rem;
 	z-index: -1;
 	transform: translateZ(-1);
 }
@@ -58,66 +65,55 @@ div#board {
 	background-size: contain;
 	border: solid rgba(4, 39, 4, 0.671) 60px;
 	border-radius: 10%;
-	width: 80vw;
-	/* height: 80vw; */
-	/* max-height: 80vh; */
-	width: 450px;
-	height: 450px;
+	width: 45rem;
+	height: 45rem;
 	background-repeat: no-repeat;
-	margin-top: auto;
-	margin-left: auto;
-	margin-right: auto;
-	cursor: crosshair;
+	cursor: none;
 }
 
 h1 {
 	display: block;
-	width: 200px;
+	width: 20rem;
 	font-family: "Shizuru";
 	color: white;
 	text-align: center;
 	font-size: 1.8rem;
-	margin: 30px auto 0px auto;
-	border: solid green 2px;
-	border-radius: 10px;
-	padding: 5px;
+	margin: 3rem auto 0 auto;
+	border: solid green 0.2rem;
+	border-radius: 1rem;
+	padding: 0.5rem;
 }
 h4 {
 	display: block;
-	width: 200px;
-	height: 60px;
+	width: 20rem;
+	height: 6rem;
 	font-family: "Shizuru";
 	color: white;
 	text-align: center;
-	margin: 0px auto 30px auto;
-	border: solid green 2px;
-	border-radius: 10px;
-	padding: 5px;
+	margin: 0 auto 3rem auto;
+	border: solid green 0.2rem;
+	border-radius: 1rem;
+	padding: 0.5rem;
 }
 
 table {
-	width: 80vw;
-	max-width: fit-content;
-	height: 80vw;
-	max-height: 80vh;
+	width: 100%;
+	height: 100%;
 }
 #board td {
-	width: 8vw;
-	height: 8vh;
 	cursor: url(./BombCursor.png), auto;
-	/* cursor: url(https://cdn-icons-png.flaticon.com/128/112/112683.png),; */
 }
 
 div#message {
 	position: absolute;
-	top: 10px;
-	left: 10px;
+	top: 1rem;
+	left: 1rem;
 	width: 16%;
-	min-height: 70px;
-	height: 70px;
+	min-height: 7rem;
+
 	border: green dashed 2px;
 	overflow: hidden;
-	padding: 10px;
+	padding: 1rem;
 	border-radius: 2rem;
 }
 div#message:hover {
@@ -133,7 +129,7 @@ div#message:hover {
 	background-size: contain;
 }
 #currentCell {
-	font-size: 1.8em;
+	font-size: 1.8rem;
 }
 
 table.ranking tr td {

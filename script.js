@@ -37,7 +37,7 @@ function parseGuessIndicator(guess) {
 function init() {
 	let body = document.querySelector("body");
 	body.onmousemove = ballPositioning;
-	body.onscroll = ballPositioning;
+	//body.onscroll = ballPositioning;
 	var fireButton = document.getElementById("fireButton");
 	fireButton.onclick = handleFireButton;
 	var guessInput = document.getElementById("guessInput");
