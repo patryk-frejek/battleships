@@ -252,12 +252,13 @@ var view = {
 	},
 	clear: function () {
 		const allCells = document.querySelectorAll("#board td");
-		allCells.forEach((element => {element.classList.remove("hit");
-										element.classList.remove("miss");
-		}));
+		allCells.forEach((element) => {
+			element.classList.remove("hit");
+			element.classList.remove("miss");
+		});
 		controller.guesses = 0;
 		model.shipsSunk === 0;
-		model.gameOver =false;
+		model.gameOver = false;
 	},
 };
 
@@ -278,4 +279,5 @@ function handleCurrentCell(element) {
 
 function resetButton() {
 	view.clear();
+	model.generateShipsLocations();
 }
