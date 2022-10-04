@@ -256,8 +256,9 @@ var view = {
 			element.classList.remove("hit");
 			element.classList.remove("miss");
 		});
+		console.log("zatopione statki" + model.shipsSunk);
 		controller.guesses = 0;
-		model.shipsSunk === 0;
+		model.shipsSunk = 0;
 		model.gameOver = false;
 	},
 };
@@ -280,4 +281,5 @@ function handleCurrentCell(element) {
 function resetButton() {
 	view.clear();
 	model.generateShipsLocations();
+	console.log("zatopione statki" + model.shipsSunk);
 }
