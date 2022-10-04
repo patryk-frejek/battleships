@@ -4,9 +4,12 @@
 	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
+	cursor: none;
 }
 html {
 	font-size: 62.5%;
+	font-family: "Shizuru";
+	
 }
 
 @media only screen and (max-width: 31.25em) {
@@ -84,7 +87,6 @@ div#board {
 h1 {
 	display: block;
 	width: 20rem;
-	font-family: "Shizuru";
 	color: white;
 	text-align: center;
 	font-size: 1.8rem;
@@ -99,7 +101,6 @@ h4 {
 	display: block;
 	width: 20rem;
 	height: 6rem;
-	font-family: "Shizuru";
 	color: white;
 	text-align: center;
 	margin: 0 auto 3rem auto;
@@ -150,4 +151,26 @@ table.ranking tr td {
 	margin: 0px;
 	font-size: 2rem;
 	/* cursor: no-drop; */
+}
+
+.rstBtn{
+	margin-top: 1rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border: solid white .3rem;
+	border-radius: 1rem;
+	padding: 1rem 3rem;
+	text-transform: uppercase;
+text-decoration: none;
+font-size: 2rem;
+transition: all .1s ease;
+}
+.rstBtn:link,.rstBtn:visited{
+	color: white;
+
+}
+.rstBtn:hover,.rstBtn:active{
+border: solid darkgreen .3rem;
+transform: translateY(-.3rem);
 }

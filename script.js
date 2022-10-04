@@ -37,16 +37,16 @@ function parseGuessIndicator(guess) {
 function init() {
 	let body = document.querySelector("body");
 	body.onmousemove = ballPositioning;
-	var fireButton = document.getElementById("fireButton");
+	const fireButton = document.getElementById("fireButton");
 	fireButton.onclick = handleFireButton;
-
+	const rstButton = document.querySelector(".rstBtn");
+	rstButton.onclick = resetButton;
 	model.generateShipsLocations();
 	var guessCell = document.querySelectorAll("#board td");
 	guessCell.forEach((element) => {
 		element.onclick = handleClickCell;
 		element.onmouseover = handleCurrentCell;
 	});
-
 }
 
 function handleClickCell(eventObj) {
@@ -67,7 +67,6 @@ function handleClickCell(eventObj) {
 		model.fire(guess);
 	}
 }
-
 
 function handleFireButton() {
 	var guessInput = document.getElementById("guessInput");
@@ -251,6 +250,15 @@ var view = {
 		var shot = document.getElementById(location);
 		shot.setAttribute("class", "miss");
 	},
+	clear: function () {
+		const allCells = document.querySelectorAll("#board td");
+		allCells.forEach((element => {element.classList.remove("hit");
+										element.classList.remove("miss");
+		}));
+		controller.guesses = 0;
+		model.shipsSunk === 0;
+		model.gameOver =false;
+	},
 };
 
 function ballPositioning(event) {
@@ -266,4 +274,8 @@ function ballPositioning(event) {
 function handleCurrentCell(element) {
 	var currentCell = document.getElementById("currentCell");
 	currentCell.innerHTML = parseGuessIndicator(element.target.id);
+}
+
+function resetButton() {
+	view.clear();
 }
