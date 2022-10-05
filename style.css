@@ -175,8 +175,9 @@ transform: translateY(-.3rem);
 		font-size: 40%;
 	}
 		div#board {
-	width: 60vw;
-	height: 60vw;
+	width: 98vw;
+	height: 98vw;
+	border: solid white .2rem;
 	}
 
 }
