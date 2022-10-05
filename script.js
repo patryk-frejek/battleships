@@ -164,7 +164,7 @@ var model = {
 				console.log(controller.guesses);
 				if (this.isSunk(ship)) {
 					this.shipsSunk++;
-					view.displayMessage("Trafiony i zatopiony");
+					view.displayMessage("Trafiony, zatopiony");
 					if (this.shipsSunk === this.numShips) {
 						console.log("gameover");
 						model.gameOver = true;

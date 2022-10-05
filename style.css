@@ -70,7 +70,7 @@ button {
 	border-radius: 50%;
 	width: 3rem;
 	height: 3rem;
-	z-index: -1;
+	z-index: 100;
 	transform: translateZ(-1);
 }
 div#board {
@@ -82,6 +82,7 @@ div#board {
 	height: 45rem;
 	background-repeat: no-repeat;
 	cursor: none;
+	z-index: 101;
 }
 
 h1 {
@@ -115,27 +116,33 @@ table {
 }
 #board td {
 	cursor: url(./BombCursor.png), auto;
+	
+}
+#board td:hover {
+background-color: rgba(255, 255, 255, 0.132);
 }
 
 div#message {
 	position: absolute;
+	font-size: 2rem;
+	font-weight: 600;
 	top: 1rem;
 	left: 1rem;
-	width: 16%;
-	min-height: 7rem;
-
+	width: 11rem;
+	min-height: 10rem;
+	text-align: center;
 	border: green dashed 2px;
-	overflow: hidden;
-	padding: 1rem;
-	border-radius: 2rem;
+	border-radius: 1rem;
+	z-index: 102;
 }
 div#message:hover {
-	height: auto;
+	background-color: #46764850;
 }
 
 .hit {
 	background: url(./boat.png) no-repeat;
 	background-size: contain;
+
 }
 .miss {
 	background: url(./miss.png) no-repeat;
@@ -165,6 +172,7 @@ table.ranking tr td {
 text-decoration: none;
 font-size: 2rem;
 transition: all .1s ease;
+z-index: 102;
 }
 .rstBtn:link,.rstBtn:visited{
 	color: white;
