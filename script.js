@@ -136,12 +136,15 @@ var model = {
 	],
 
 	isSunk: function (ship) {
-		var hits1 = 0;
-		for (var i = 0; i < this.shipLength; i++) {
+		let hits1 = 0;
+		for (let i = 0; i < this.shipLength; i++) {
+			console.log("i=" +i);
 			if (ship.hits[i] == "hit") {
 				hits1++;
 				console.log("hits1 = " + hits1);
 				if (hits1 == this.shipLength) {
+					console.log("this ships length = " + hits1);
+
 					return true;
 				}
 			}
@@ -256,11 +259,17 @@ var view = {
 			element.classList.remove("hit");
 			element.classList.remove("miss");
 		});
-		console.log("zatopione statki" + model.shipsSunk);
+		// console.log("zatopione statki" + model.shipsSunk);
 		controller.guesses = 0;
 		model.shipsSunk = 0;
 		model.gameOver = false;
-	},
+
+		for (let i = 0; i < model.numShips; i++) {
+			for (let j = 0; j < model.ships[i].hits.length; j++) {
+				model.ships[i].hits[j]="";
+			}
+		}
+	}
 };
 
 function ballPositioning(event) {
@@ -279,7 +288,7 @@ function handleCurrentCell(element) {
 }
 
 function resetButton() {
-	view.clear();
-	model.generateShipsLocations();
-	console.log("zatopione statki" + model.shipsSunk);
+		model.generateShipsLocations();
+view.clear();
+
 }
