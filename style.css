@@ -12,21 +12,6 @@ html {
 	
 }
 
-@media only screen and (max-width: 31.25em) {
-	html {
-		font-size: 40%;
-	}
-}
-@media only screen and (max-width: 31.25em) {
-	html {
-		font-size: 49%;
-	}
-}
-@media only screen and (min-width: 75em) {
-	html {
-		font-size: 75%;
-	}
-}
 body {
 	background: #000000;
 	background: -webkit-radial-gradient(center, #000000, #18421a);
@@ -36,12 +21,13 @@ body {
 	background-size: contain;
 	background-position: center center;
 	display: flex;
-	flex-direction: row;
+	flex-direction: column;
 	flex-wrap: wrap;
 	justify-content: center;
 	align-items: center;
 	cursor: none;
 	user-select: none;
+	gap:1rem;
 }
 
 label {
@@ -76,10 +62,10 @@ button {
 div#board {
 	background-image: url("./vectora150200035.jpg");
 	background-size: contain;
-	border: solid rgba(4, 39, 4, 0.671) 60px;
-	border-radius: 10%;
-	width: 45rem;
-	height: 45rem;
+	border: solid rgba(0, 250, 0, 0.113) 1rem;
+	border-radius: 1rem;
+	width: 60vh;
+	height: 60vh;
 	background-repeat: no-repeat;
 	cursor: none;
 	z-index: 101;
@@ -161,7 +147,7 @@ table.ranking tr td {
 }
 
 .rstBtn{
-	margin-top: 1rem;
+	
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -181,4 +167,36 @@ z-index: 102;
 .rstBtn:hover,.rstBtn:active{
 border: solid darkgreen .3rem;
 transform: translateY(-.3rem);
+}
+
+
+@media only screen and (max-width: 37.25em) {
+	html {
+		font-size: 40%;
+	}
+		div#board {
+	width: 60vw;
+	height: 60vw;
+	}
+
+}
+@media only screen and (min-width: 37.25em) {
+	html {
+		font-size: 49%;
+	}
+	
+	
+}
+@media only screen and (min-width: 65.25em) {
+	html {
+		font-size: 62%;
+	}
+
+	
+}
+
+@media only screen and (min-width: 75em) {
+	html {
+		font-size: 75%;
+	}
 }
