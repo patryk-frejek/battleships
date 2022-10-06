@@ -27,7 +27,7 @@ body {
 	align-items: center;
 	cursor: none;
 	user-select: none;
-	gap:1rem;
+	gap:5rem;
 }
 
 label {
@@ -114,14 +114,33 @@ div#message {
 	font-weight: 600;
 	top: 1rem;
 	left: 1rem;
-	width: 11rem;
-	min-height: 10rem;
+	width: 15rem;
+	text-align: center;
+	padding: 1.5rem;
+	border: green dashed 2px;
+	border-radius: 1rem;
+	z-index: 102;
+}
+div#score {
+	position: absolute;
+	font-size: 2rem;
+	font-weight: 600;
+	top: 1rem;
+	right: 1rem;
+	width: 25rem;
 	text-align: center;
 	border: green dashed 2px;
 	border-radius: 1rem;
 	z-index: 102;
 }
-div#message:hover {
+div#score span {
+	display: inline-block;
+	padding: 0rem 2rem;
+font-size: 3rem;
+border-radius: 30%;
+background-color: rgba(0, 0, 0, 0.711);
+}
+div#message:hover, div#score:hover {
 	background-color: #46764850;
 }
 
