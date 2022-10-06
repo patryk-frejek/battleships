@@ -9,7 +9,6 @@
 html {
 	font-size: 62.5%;
 	font-family: "Shizuru";
-	
 }
 
 body {
@@ -27,7 +26,7 @@ body {
 	align-items: center;
 	cursor: none;
 	user-select: none;
-	gap:5rem;
+	gap: 1rem;
 }
 
 label {
@@ -102,10 +101,10 @@ table {
 }
 #board td {
 	cursor: url(./BombCursor.png), auto;
-	
 }
 #board td:hover {
-background-color: rgba(255, 255, 255, 0.132);
+	background-color: rgba(255, 255, 255, 0.132);
+	transition: all 0.3s ease;
 }
 
 div#message {
@@ -127,7 +126,7 @@ div#score {
 	font-weight: 600;
 	top: 1rem;
 	right: 1rem;
-	width: 25rem;
+	width: auto;
 	text-align: center;
 	border: green dashed 2px;
 	border-radius: 1rem;
@@ -136,18 +135,19 @@ div#score {
 div#score span {
 	display: inline-block;
 	padding: 0rem 2rem;
-font-size: 3rem;
-border-radius: 30%;
-background-color: rgba(0, 0, 0, 0.711);
+	font-size: 3rem;
+	border-radius: 30%;
+	background-color: rgba(0, 0, 0, 0.711);
 }
-div#message:hover, div#score:hover {
+div#message:hover,
+div#score:hover {
 	background-color: #46764850;
 }
 
 .hit {
 	background: url(./boat.png) no-repeat;
 	background-size: contain;
-
+	transition: all 0.5s ease;
 }
 .miss {
 	background: url(./miss.png) no-repeat;
@@ -165,54 +165,53 @@ table.ranking tr td {
 	/* cursor: no-drop; */
 }
 
-.rstBtn{
-	
+.rstBtn {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	border: solid white .3rem;
+	border: solid white 0.3rem;
 	border-radius: 1rem;
 	padding: 1rem 3rem;
 	text-transform: uppercase;
-text-decoration: none;
-font-size: 2rem;
-transition: all .1s ease;
-z-index: 102;
+	text-decoration: none;
+	font-size: 2rem;
+	transition: all 0.1s ease;
+	z-index: 102;
+	margin-top: -3 rem;
 }
-.rstBtn:link,.rstBtn:visited{
+.rstBtn:link,
+.rstBtn:visited {
 	color: white;
-
 }
-.rstBtn:hover,.rstBtn:active{
-border: solid darkgreen .3rem;
-transform: translateY(-.3rem);
+.rstBtn:hover {
+	border: solid darkgreen 0.3rem;
+	transform: translateY(-0.1rem);
+	box-shadow: 0 5rem 2rem rgb(0, 0, 0);
 }
-
+.rstBtn:active {
+	border: solid darkgreen 0.3rem;
+	transform: translateY(0.1rem);
+}
 
 @media only screen and (max-width: 37.25em) {
 	html {
 		font-size: 40%;
 	}
-		div#board {
-	width: 98vw;
-	height: 98vw;
-	border: solid white .2rem;
+	div#board {
+		width: 98vw;
+		height: 98vw;
+		border: solid white 0.2rem;
 	}
-
 }
 @media only screen and (min-width: 37.25em) {
 	html {
 		font-size: 49%;
 	}
-	
-	
 }
 @media only screen and (min-width: 65.25em) {
 	html {
 		font-size: 62%;
 	}
-
-	
 }
 
 @media only screen and (min-width: 75em) {
