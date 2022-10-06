@@ -56,7 +56,8 @@ function handleClickCell(eventObj) {
 	var guessClass = document.getElementById(cell.id);
 	guessClass = guessClass.className + "";
 	var guess = guessInput.value;
-	console.log(guess);
+	displayStats();
+
 	if (guess[0] > model.boardSize - 1 || guess[1] > model.boardSize - 1) {
 		alert("Ups.Pole poza mapą");
 	} else if (guessClass !== "") {
@@ -68,12 +69,20 @@ function handleClickCell(eventObj) {
 	}
 }
 
+function displayStats(offset = 1){
+	var currentShots = document.querySelector(".score__currentShots");
+	currentShots.innerHTML = controller.guesses + offset;
+	var shipsSunk = document.querySelector(".score__shipsSunk");
+	shipsSunk.innerHTML = model.shipsSunk;
+
+}
 function handleFireButton() {
 	var guessInput = document.getElementById("guessInput");
 	var guess = guessInput.value;
 	console.log("guess = " + guess);
 	controller.processGuess(guess);
 	guessInput.value = "";
+	
 }
 window.onload = init;
 
@@ -243,6 +252,7 @@ var view = {
 	displayMessage: function (msg) {
 		var message = document.getElementById("message");
 		message.innerHTML = msg;
+			displayStats();
 	},
 	hit: function (location) {
 		var locationLocal = location;
@@ -290,5 +300,6 @@ function handleCurrentCell(element) {
 function resetButton() {
 		model.generateShipsLocations();
 view.clear();
+displayStats(0);
 
 }
