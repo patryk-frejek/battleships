@@ -249,27 +249,26 @@ var model = {
 };
 //////////////////////VIEW //////////////////VIEW//////////////VIEW///////////////////////////////////
 var view = {
-	displayMessage: function (msg) {
+	displayMessage (msg) {
 		var message = document.getElementById("message");
 		message.innerHTML = msg;
 			displayStats();
 	},
-	hit: function (location) {
+	hit (location) {
 		var locationLocal = location;
 		var shot = document.getElementById(location);
 		shot.setAttribute("class", "hit");
 	},
-	miss: function (location) {
+	miss (location) {
 		var shot = document.getElementById(location);
 		shot.setAttribute("class", "miss");
 	},
-	clear: function () {
+	clear () {
 		const allCells = document.querySelectorAll("#board td");
 		allCells.forEach((element) => {
 			element.classList.remove("hit");
 			element.classList.remove("miss");
 		});
-		// console.log("zatopione statki" + model.shipsSunk);
 		controller.guesses = 0;
 		model.shipsSunk = 0;
 		model.gameOver = false;
@@ -279,6 +278,17 @@ var view = {
 				model.ships[i].hits[j]="";
 			}
 		}
+	},
+	saveScoreTable(){
+		console.log("test");
+		var rankingScores= document.querySelectorAll(".ranking .playerResultRow");
+		//sortowanie obecnych wyników
+		console.log(ranking);
+
+keysSorted = Object.keys(ranking).sort(function (a, b) {
+	return ranking[a] - ranking[b];
+});
+console.log(keysSorted); 
 	}
 };
 
@@ -301,5 +311,11 @@ function resetButton() {
 		model.generateShipsLocations();
 view.clear();
 displayStats(0);
-
+view.saveScoreTable();
 }
+
+var ranking = {
+	player1:30 ,
+	player2: 50 ,
+	player3: 10
+};
