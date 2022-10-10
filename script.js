@@ -144,8 +144,8 @@ var controller = {
 };
 ////////////////////////MODEL///MODEL//MODEL//MODEL///////////////////////////////////////////////////////
 var model = {
-	boardSize: 4,
-	numShips: 2,
+	boardSize: 10,
+	numShips: 5,
 	shipLength: 3,
 	shipsSunk: 0,
 	gameOver: false,
