@@ -46,6 +46,18 @@ input {
 	width: auto;
 }
 
+#player-name{
+	display: inline-block;
+	width: 80%;
+	height: 3rem;
+	background-color: lightgreen;
+	padding: 2rem 2 rem;
+	border-radius: 20%;
+	text-align: center;
+z-index: 105;
+position: relative;
+}
+
 button {
 	font-size: 1.5rem;
 }
@@ -186,11 +198,12 @@ table.ranking tr td {
 .rstBtn:hover {
 	border: solid darkgreen 0.3rem;
 	transform: translateY(-0.1rem);
-	box-shadow: 0 5rem 2rem rgb(0, 0, 0);
+	box-shadow: 0 .5rem 2rem rgb(0, 0, 0);
 }
 .rstBtn:active {
 	border: solid darkgreen 0.3rem;
 	transform: translateY(0.1rem);
+	box-shadow: none;
 }
 
 @media only screen and (max-width: 37.25em) {
@@ -219,3 +232,5 @@ table.ranking tr td {
 		font-size: 75%;
 	}
 }
+
+

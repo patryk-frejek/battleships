@@ -21,8 +21,11 @@
     <h4>Aktualne Pole: <br>
       <span id="currentCell"></span>
     </h4>
+    <h4>
+      <input type="text" name="playerName" id="player-name" placeholder="Nazwa gracza"  value="Gracz">
+    </h4>
     <div id="score">
-      Oddane strzały:<br> <span class="score__currentShots">0</span><br><br>
+      Oddane strzały:<br> <span class="score__currentShots">0</span><br>
       Zatopione statki:<br> <span class="score__shipsSunk">0</span>
     </div>
   </div>
@@ -150,7 +153,8 @@
       <td id="99"></td>
     </tr>
   </table>
-    </div>
+</div>
+<a class="rstBtn" href="#">Reset</a>
 
   <form id="celownik" hidden>
       <label for="guessInput">Cel  i pal! Wybierz pole do strzału</label>
@@ -160,20 +164,28 @@
 
   <!-- ----------------------------------TABELA WYNIKÓW  -->
 
-  <table class='ranking' style="display:none;" >  <!-- ----------------------------------UKRYTA  -->
-    <tr class='playerResultRow' >
-      <td>Player 1</td>
-      <td>rekord</td>
+  <table class='ranking'  >  <!-- ----------------------------------UKRYTA  -->
+    <tr class='playerResultRow' hidden >
+      <td class="ranking__name"></td>
+      <td class="ranking__score"></td>
     </tr>
-    <tr class='playerResultRow' >
-      <td>Player 2</td>
-      <td>rekord</td>
-    </tr><tr class='playerResultRow' >
-      <td>Player 3</td>
-      <td>rekord</td>
+    <tr class='playerResultRow' hidden >
+      <td class="ranking__name"></td>
+      <td class="ranking__score"></td>
+    </tr>
+    <tr class='playerResultRow'  hidden>
+      <td class="ranking__name"></td>
+      <td class="ranking__score"></td>
+    </tr>
+    <tr class='playerResultRow' hidden >
+      <td class="ranking__name"></td>
+      <td class="ranking__score"></td>
+    </tr>
+    <tr class='playerResultRow'  hidden>
+      <td class="ranking__name"></td>
+      <td class="ranking__score"></td>
     </tr>
   </table>
 
-  <a class="rstBtn" href="#">Reset</a>
 </body>
 </html>
