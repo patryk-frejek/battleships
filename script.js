@@ -56,8 +56,7 @@ function handleClickCell(eventObj) {
 	var guessClass = document.getElementById(cell.id);
 	guessClass = guessClass.className + "";
 	var guess = guessInput.value;
-	displayStats();
-
+	
 	if (guess[0] > model.boardSize - 1 || guess[1] > model.boardSize - 1) {
 		alert("Ups.Pole poza mapą");
 	} else if (guessClass !== "") {
@@ -67,11 +66,12 @@ function handleClickCell(eventObj) {
 	} else {
 		model.fire(guess);
 	}
+	displayStats();
 }
 
-function displayStats(offset = 1){
+function displayStats(){
 	var currentShots = document.querySelector(".score__currentShots");
-	currentShots.innerHTML = controller.guesses + offset;
+	currentShots.innerHTML = controller.guesses ;
 	var shipsSunk = document.querySelector(".score__shipsSunk");
 	shipsSunk.innerHTML = model.shipsSunk;
 
@@ -79,10 +79,36 @@ function displayStats(offset = 1){
 function handleFireButton() {
 	var guessInput = document.getElementById("guessInput");
 	var guess = guessInput.value;
-	console.log("guess = " + guess);
 	controller.processGuess(guess);
 	guessInput.value = "";
 	
+}
+
+function ballPositioning(event) {
+	var ball = document.querySelector("#ball");
+	var x = event.clientX + window.pageXOffset;
+	var y = event.clientY + window.pageYOffset;
+	setTimeout(() => {
+		ball.style.left = x + -15 + "px";
+		ball.style.top = y + -15 + "px";
+	}, 15);
+}
+
+function handleCurrentCell(element) {
+	var currentCell = document.getElementById("currentCell");
+	currentCell.innerHTML = parseGuessIndicator(element.target.id);
+}
+
+function resetButton() {
+	model.generateShipsLocations();
+	model.shipsSunk == model.numShips ? view.saveScoreTable() : false;
+	view.clear();
+	displayStats(0);
+}
+//Score array io objects construction
+function Record(name, score) {
+	this.name = name;
+	this.score = score;
 }
 window.onload = init;
 
@@ -97,7 +123,6 @@ var controller = {
 			this.guesses = this.guesses + 1;
 			var hit = model.fire(location);
 			if (hit && model.shipsSunk === model.numShips) {
-				console.log("gameover");
 				model.gameOver = true;
 				view.displayMessage(
 					"Brawo. Zatopiłeś " +
@@ -106,17 +131,21 @@ var controller = {
 						this.guesses +
 						"próbach"
 				);
+				
 			}
 		}
 	},
 };
 ////////////////////////MODEL///MODEL//MODEL//MODEL///////////////////////////////////////////////////////
 var model = {
-	boardSize: 10,
-	numShips: 5,
+	boardSize: 4,
+	numShips: 2,
 	shipLength: 3,
 	shipsSunk: 0,
 	gameOver: false,
+	playerName: "Player",
+	ranking : [],
+
 	ships: [
 		{
 			locations: ["", "", ""],
@@ -147,12 +176,9 @@ var model = {
 	isSunk: function (ship) {
 		let hits1 = 0;
 		for (let i = 0; i < this.shipLength; i++) {
-			console.log("i=" +i);
 			if (ship.hits[i] == "hit") {
 				hits1++;
-				console.log("hits1 = " + hits1);
 				if (hits1 == this.shipLength) {
-					console.log("this ships length = " + hits1);
 
 					return true;
 				}
@@ -170,7 +196,6 @@ var model = {
 				view.displayMessage("Trafiony");
 				view.hit(guess);
 				controller.guesses = controller.guesses + 1;
-				console.log(controller.guesses);
 				if (this.isSunk(ship)) {
 					this.shipsSunk++;
 					view.displayMessage("Trafiony, zatopiony");
@@ -188,7 +213,6 @@ var model = {
 				}
 				return true;
 			} else {
-				console.log(controller.guesses);
 				view.miss(guess);
 				view.displayMessage("Pudło");
 			}
@@ -280,42 +304,12 @@ var view = {
 		}
 	},
 	saveScoreTable(){
-		console.log("test");
-		var rankingScores= document.querySelectorAll(".ranking .playerResultRow");
-		//sortowanie obecnych wyników
-		console.log(ranking);
 
-keysSorted = Object.keys(ranking).sort(function (a, b) {
-	return ranking[a] - ranking[b];
-});
-console.log(keysSorted); 
+		model.ranking.push(new Record(model.playerName,controller.guesses));
+		console.dir(model.ranking);
+
+		model.ranking.sort((a, b) => {
+			return a.score - b.score;
+		});
 	}
-};
-
-function ballPositioning(event) {
-	var ball = document.querySelector("#ball");
-	var x = event.clientX + window.pageXOffset;
-	var y = event.clientY + window.pageYOffset;
-	setTimeout(() => {
-		ball.style.left = x + -15 + "px";
-		ball.style.top = y + -15 + "px";
-	}, 15);
-}
-
-function handleCurrentCell(element) {
-	var currentCell = document.getElementById("currentCell");
-	currentCell.innerHTML = parseGuessIndicator(element.target.id);
-}
-
-function resetButton() {
-		model.generateShipsLocations();
-view.clear();
-displayStats(0);
-view.saveScoreTable();
-}
-
-var ranking = {
-	player1:30 ,
-	player2: 50 ,
-	player3: 10
 };
