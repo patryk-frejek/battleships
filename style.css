@@ -46,6 +46,18 @@ input {
 	width: auto;
 }
 
+#player-name{
+	display: inline-block;
+	width: 80%;
+	height: 3rem;
+	background-color: lightgreen;
+	padding: 2rem 2 rem;
+	border-radius: 20%;
+	text-align: center;
+z-index: 105;
+position: relative;
+}
+
 button {
 	font-size: 1.5rem;
 }

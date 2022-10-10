@@ -47,6 +47,9 @@ function init() {
 		element.onclick = handleClickCell;
 		element.onmouseover = handleCurrentCell;
 	});
+	const playerNameInput = document.getElementById("player-name");
+	playerNameInput.onchange = getPlayerName;
+	
 }
 
 function handleClickCell(eventObj) {
@@ -83,7 +86,9 @@ function handleFireButton() {
 	guessInput.value = "";
 	
 }
-
+function getPlayerName(name){
+	model.playerName = name.target.value;
+}
 function ballPositioning(event) {
 	var ball = document.querySelector("#ball");
 	var x = event.clientX + window.pageXOffset;
@@ -201,7 +206,6 @@ var model = {
 					this.shipsSunk++;
 					view.displayMessage("Trafiony, zatopiony");
 					if (this.shipsSunk === this.numShips) {
-						console.log("gameover");
 						model.gameOver = true;
 						view.displayMessage(
 							"Brawo. Zatopiłeś " +
@@ -309,7 +313,6 @@ var view = {
 		var rankingName = document.querySelectorAll(".ranking__name");
 		var rankingScore = document.querySelectorAll(".ranking__score");
 		model.ranking.push(new Record(model.playerName,controller.guesses));
-		console.dir(model.ranking);
 		model.ranking.sort((a, b) => {
 			return a.score - b.score;
 		});
