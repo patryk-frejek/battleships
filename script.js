@@ -103,7 +103,8 @@ function resetButton() {
 	model.generateShipsLocations();
 	model.shipsSunk == model.numShips ? view.saveScoreTable() : false;
 	view.clear();
-	displayStats(0);
+	displayStats();
+
 }
 //Score array io objects construction
 function Record(name, score) {
@@ -304,12 +305,19 @@ var view = {
 		}
 	},
 	saveScoreTable(){
-
+		var playerResultRow = document.querySelectorAll(".playerResultRow");
+		var rankingName = document.querySelectorAll(".ranking__name");
+		var rankingScore = document.querySelectorAll(".ranking__score");
 		model.ranking.push(new Record(model.playerName,controller.guesses));
 		console.dir(model.ranking);
-
 		model.ranking.sort((a, b) => {
 			return a.score - b.score;
 		});
+		for (let i = 0;i< model.ranking.length;i++){
+			rankingName[i].innerHTML = model.ranking[i].name;
+			rankingScore[i].innerHTML = model.ranking[i].score;
+			playerResultRow[i].removeAttribute("hidden");
+		}
+
 	}
 };

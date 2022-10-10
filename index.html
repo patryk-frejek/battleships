@@ -22,7 +22,7 @@
       <span id="currentCell"></span>
     </h4>
     <div id="score">
-      Oddane strzały:<br> <span class="score__currentShots">0</span><br><br>
+      Oddane strzały:<br> <span class="score__currentShots">0</span><br>
       Zatopione statki:<br> <span class="score__shipsSunk">0</span>
     </div>
   </div>
@@ -162,17 +162,25 @@
   <!-- ----------------------------------TABELA WYNIKÓW  -->
 
   <table class='ranking'  >  <!-- ----------------------------------UKRYTA  -->
-    <tr class='playerResultRow' >
-      <td>Player 1</td>
-      <td>20</td>
+    <tr class='playerResultRow' hidden >
+      <td class="ranking__name"></td>
+      <td class="ranking__score"></td>
     </tr>
-    <tr class='playerResultRow' >
-      <td>Player 2</td>
-      <td>10</td>
+    <tr class='playerResultRow' hidden >
+      <td class="ranking__name"></td>
+      <td class="ranking__score"></td>
     </tr>
-    <tr class='playerResultRow' >
-      <td>Player 3</td>
-      <td>30</td>
+    <tr class='playerResultRow'  hidden>
+      <td class="ranking__name"></td>
+      <td class="ranking__score"></td>
+    </tr>
+    <tr class='playerResultRow' hidden >
+      <td class="ranking__name"></td>
+      <td class="ranking__score"></td>
+    </tr>
+    <tr class='playerResultRow'  hidden>
+      <td class="ranking__name"></td>
+      <td class="ranking__score"></td>
     </tr>
   </table>
 
