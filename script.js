@@ -1,4 +1,5 @@
 window.onload = init;
+	
 function parseGuess(guess) {
 	var alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
 	//sprawdzenie czu pierwsza liczba zawiera sie w zakresie od 0 do 9
@@ -47,8 +48,18 @@ function init() {
 		element.onclick = handleClickCell;
 		element.onmouseover = handleCurrentCell;
 	});
+
 	const playerNameInput = document.getElementById("player-name");
 	playerNameInput.onchange = getPlayerName;
+
+	const shipsLength = document.getElementById("ships-length");
+	shipsLength.value = model.shipLength;
+	shipsLength.onchange =  ()=> model.shipLength = shipsLength.value;;
+
+	const shipsNumber = document.getElementById("ships-number");
+	shipsNumber.value = model.numShips;
+	shipsNumber.onchange = () => model.numShips = shipsNumber.value;
+	;
 }
 
 function handleClickCell(eventObj) {
@@ -72,6 +83,7 @@ function handleClickCell(eventObj) {
 			? model.fire5(guess)
 			: false;
 	}
+
 	displayStats();
 }
 
@@ -132,7 +144,8 @@ var controller = {
 		if (location) {
 			this.guesses = this.guesses + 1;
 			var hit = model.fire(location);
-			if (hit && model.shipsSunk === model.numShips) {
+			var hit2 = model.fire5(location);
+			if ((hit || hit2) && model.shipsSunk === model.numShips) {
 				model.gameOver = true;
 				view.displayMessage(
 					"Brawo. Zatopiłeś " +
@@ -147,9 +160,9 @@ var controller = {
 };
 ////////////////////////MODEL///MODEL//MODEL//MODEL///////////////////////////////////////////////////////
 var model = {
-	boardSize: 10,
-	numShips: 6,
-	shipLength: 5,
+	boardSize: 3,
+	numShips: 1,
+	shipLength: 3,
 	shipsSunk: 0,
 	gameOver: false,
 	playerName: "Player",
@@ -294,7 +307,7 @@ var model = {
 				if (this.isSunk(ship)) {
 					this.shipsSunk++;
 					view.displayMessage("Trafiony, zatopiony");
-					if (this.shipsSunk === this.numShips) {
+					if (this.shipsSunk === model.numShips) {
 						model.gameOver = true;
 						view.displayMessage(
 							"Brawo. Zatopiłeś " +

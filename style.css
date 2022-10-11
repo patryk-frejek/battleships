@@ -45,7 +45,17 @@ input {
 	border-radius: 0.3rem;
 	width: auto;
 }
-
+.settings{ 
+	position: relative;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	z-index: 104;
+}
+.settings label, .settings input {
+	font-size: 1.6rem;
+}
 #player-name{
 	display: inline-block;
 	width: 80%;
