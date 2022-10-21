@@ -38,6 +38,13 @@ function parseGuessIndicator(guess) {
 function init() {
 	let body = document.querySelector("body");
 	body.onmousemove = ballPositioning;
+	const settingsButton = document.querySelector(".settings-button");
+
+	settingsButton.onclick = () => {
+		const settingsMenu = document.querySelector(".settings");
+		settingsMenu.classList.toggle("settings-active");
+		resetButton();
+	};
 	const fireButton = document.getElementById("fireButton");
 	fireButton.onclick = handleFireButton;
 	const rstButton = document.querySelector(".rstBtn");
@@ -57,32 +64,38 @@ function init() {
 	shipsLength.value = model.shipLength;
 	shipsLength.onchange = () => {
 		model.shipLength = shipsLength.value;
+		if (shipsLength.value == 4 && model.boardSize < 4) {
+			model.boardSize = 4;
+			boardSize.value = 4;
+		}
 		if (shipsLength.value == 5 && model.boardSize < 5) {
 			model.boardSize = 5;
 			boardSize.value = 5;
 		}
 		view.clearScoreTable();
 	};
-	
+
 	const shipsNumber = document.getElementById("ships-number");
 	shipsNumber.value = model.numShips;
 	shipsNumber.onchange = () => {
 		model.numShips = shipsNumber.value;
-			view.clearScoreTable();
+		view.clearScoreTable();
 	};
-
 
 	const boardSize = document.getElementById("board-size");
 	boardSize.value = model.boardSize;
 	boardSize.onchange = () => {
-		if (shipsLength.value === 5 && model.boardSize < 5) {
+		if (shipsLength.value == 5 && model.boardSize < 5) {
+			model.boardSize = 5;
+			boardSize.value = 5;
+		} else if (shipsLength.value == 4 && model.boardSize < 4) {
 			model.boardSize = 5;
 			boardSize.value = 5;
 		} else {
 			model.boardSize = boardSize.value;
 		}
 		resetButton();
-			view.clearScoreTable();
+		view.clearScoreTable();
 	};
 }
 
@@ -103,6 +116,8 @@ function handleClickCell(eventObj) {
 	} else {
 		model.shipLength == 3
 			? model.fire(guess)
+			: model.shipLength == 4
+			? model.fire4(guess)
 			: model.shipLength == 5
 			? model.fire5(guess)
 			: false;
@@ -144,12 +159,19 @@ function handleCurrentCell(element) {
 function resetButton() {
 	model.shipLength == 3
 		? model.generateShipsLocations(3)
+		: model.shipLength == 4
+		? model.generateShipsLocations(4)
 		: model.shipLength == 5
 		? model.generateShipsLocations(5)
 		: false;
-	model.shipsSunk == model.numShips ? view.saveScoreTable() : false;
+
+	if (model.shipsSunk == model.numShips) {
+		view.saveScoreTable();
+	}
+
 	view.clear();
 	displayStats();
+	console.log("resetButton activated");
 }
 //Score array io objects construction
 function Record(name, score) {
@@ -169,16 +191,17 @@ var controller = {
 			this.guesses = this.guesses + 1;
 			var hit = model.fire(location);
 			var hit2 = model.fire5(location);
-			if ((hit || hit2) && model.shipsSunk === model.numShips) {
-				model.gameOver = true;
-				view.displayMessage(
-					"Brawo. Zatopiłeś " +
-						model.numShips +
-						" statki w " +
-						this.guesses +
-						"próbach"
-				);
-			}
+		}
+		if (model.shipsSunk == model.numShips) {
+			// if ((hit || hit2) && model.shipsSunk == model.numShips) {
+			model.gameOver = true;
+			view.displayMessage(
+				"Brawo. Zatopiłeś " +
+					model.numShips +
+					" statki w " +
+					this.guesses +
+					"próbach"
+			);
 		}
 	},
 };
@@ -297,7 +320,41 @@ var model = {
 				if (this.isSunk(ship)) {
 					this.shipsSunk++;
 					view.displayMessage("Trafiony, zatopiony");
-					if (this.shipsSunk === this.numShips) {
+					if (this.shipsSunk == this.numShips) {
+						model.gameOver = true;
+						view.displayMessage(
+							"Brawo. Zatopiłeś " +
+								model.numShips +
+								" statki w " +
+								controller.guesses +
+								"próbach"
+						);
+					}
+				}
+				return true;
+			} else {
+				view.miss(guess);
+				view.displayMessage("Pudło");
+			}
+		}
+		controller.guesses = controller.guesses + 1;
+
+		return false;
+	},
+	fire4: function (guess) {
+		for (var i = 0; i < this.numShips; i++) {
+			var ship = this.ships4[i];
+			var index = ship.locations.indexOf(guess);
+
+			if (index >= 0) {
+				ship.hits[index] = "hit";
+				view.displayMessage("Trafiony");
+				view.hit(guess);
+				controller.guesses = controller.guesses + 1;
+				if (this.isSunk(ship)) {
+					this.shipsSunk++;
+					view.displayMessage("Trafiony, zatopiony");
+					if (this.shipsSunk == model.numShips) {
 						model.gameOver = true;
 						view.displayMessage(
 							"Brawo. Zatopiłeś " +
@@ -331,7 +388,7 @@ var model = {
 				if (this.isSunk(ship)) {
 					this.shipsSunk++;
 					view.displayMessage("Trafiony, zatopiony");
-					if (this.shipsSunk === model.numShips) {
+					if (this.shipsSunk == model.numShips) {
 						model.gameOver = true;
 						view.displayMessage(
 							"Brawo. Zatopiłeś " +
@@ -362,6 +419,13 @@ var model = {
 					locations = this.generateShip(); //przypisuj nowowygenerowany statek z metody generateShip do zmiennej lokalnej.
 				} while (this.collision(locations)); // rób to tak długo aż metoda collision odda FALSE  po sprawdzeniu lokacji.
 				this.ships[i].locations = locations; // po zakończeniu pętli do,while zapisz do właściwości ships.locations  wygenerowany statek
+			}
+			// ///////////////////////////////////////////////////////Pętla do generacji statków o długości 4
+			if (shipLength == 4) {
+				do {
+					locations = this.generateShip(4); //przypisuj nowowygenerowany statek z metody generateShip do zmiennej lokalnej.
+				} while (this.collision4(locations)); // rób to tak długo aż metoda collision odda FALSE  po sprawdzeniu lokacji.
+				this.ships4[i].locations = locations; // po zakończeniu pętli do,while zapisz do właściwości ships.locations  wygenerowany statek
 			}
 
 			// ///////////////////////////////////////////////////////Pętla do generacji statków o długości 5
@@ -400,34 +464,72 @@ var model = {
 		}
 		return newShipLocations;
 	},
-	generateShip5: function (shipLength) {
-		var direction = Math.floor(Math.random() * 2);
-		var row, col;
-		if (direction === 1) {
-			//wygeneruj początkowe pole statku w poziomie
-			row = Math.floor(Math.random() * this.boardSize);
-			col = Math.floor(Math.random() * (this.boardSize - shipLength));
-		} else {
-			//wygeneruj początkowe pole pionowego statku
-			row = Math.floor(Math.random() * (this.boardSize - shipLength));
-			col = Math.floor(Math.random() * this.boardSize);
-		}
+	// 	var direction = Math.floor(Math.random() * 2);
+	// 	var row, col;
+	// 	if (direction === 1) {
+	// 		//wygeneruj początkowe pole statku w poziomie
+	// 		row = Math.floor(Math.random() * this.boardSize);
+	// 		col = Math.floor(Math.random() * (this.boardSize - shipLength));
+	// 	} else {
+	// 		//wygeneruj początkowe pole pionowego statku
+	// 		row = Math.floor(Math.random() * (this.boardSize - shipLength));
+	// 		col = Math.floor(Math.random() * this.boardSize);
+	// 	}
 
-		var newShipLocations = [];
-		for (var i = 0; i < this.shipLength; i++) {
-			if (direction == 1) {
-				newShipLocations.push(row + "" + (col + i));
-				//kolejne pola poziomego statku
-			} else {
-				newShipLocations.push(row + i + "" + col);
-				//kolejne pola pionowego statku
-			}
-		}
-		return newShipLocations;
-	},
+	// 	var newShipLocations = [];
+	// 	for (var i = 0; i < this.shipLength; i++) {
+	// 		if (direction == 1) {
+	// 			newShipLocations.push(row + "" + (col + i));
+	// 			//kolejne pola poziomego statku
+	// 		} else {
+	// 			newShipLocations.push(row + i + "" + col);
+	// 			//kolejne pola pionowego statku
+	// 		}
+	// 	}
+	// 	return newShipLocations;
+	// },
+	// generateShip5: function (shipLength) {
+	// 	var direction = Math.floor(Math.random() * 2);
+	// 	var row, col;
+	// 	if (direction === 1) {
+	// 		//wygeneruj początkowe pole statku w poziomie
+	// 		row = Math.floor(Math.random() * this.boardSize);
+	// 		col = Math.floor(Math.random() * (this.boardSize - shipLength));
+	// 	} else {
+	// 		//wygeneruj początkowe pole pionowego statku
+	// 		row = Math.floor(Math.random() * (this.boardSize - shipLength));
+	// 		col = Math.floor(Math.random() * this.boardSize);
+	// 	}
+
+	// 	var newShipLocations = [];
+	// 	for (var i = 0; i < this.shipLength; i++) {
+	// 		if (direction == 1) {
+	// 			newShipLocations.push(row + "" + (col + i));
+	// 			//kolejne pola poziomego statku
+	// 		} else {
+	// 			newShipLocations.push(row + i + "" + col);
+	// 			//kolejne pola pionowego statku
+	// 		}
+	// 	}
+	// 	return newShipLocations;
+	// },
 	collision: function (locations) {
 		for (var i = 0; i < this.numShips; i++) {
 			var ship = model.ships[i]; //statek 0
+			for (var j = 0; j < locations.length; j++) {
+				//sprawdza kolejno 3 komórki tablicy locations
+				if (ship.locations.indexOf(locations[j]) >= 0) {
+					return true;
+					//sprawdza na którym indeksie znajduje się współrzędna 1,2 lub 3 tablicy locations
+					//w przypadku nie znalezienia żadnego indeksu oddaje wartość -1 i nie ma kolizji
+				}
+			}
+		}
+		return false;
+	},
+	collision4: function (locations) {
+		for (var i = 0; i < 4; i++) {
+			var ship = model.ships4[i]; //statek 0
 			for (var j = 0; j < locations.length; j++) {
 				//sprawdza kolejno 3 komórki tablicy locations
 				if (ship.locations.indexOf(locations[j]) >= 0) {
@@ -483,6 +585,9 @@ var view = {
 			for (let j = 0; j < model.ships[i].hits.length; j++) {
 				model.ships[i].hits[j] = "";
 			}
+			for (let j = 0; j < model.ships4[i].hits.length; j++) {
+				model.ships4[i].hits[j] = "";
+			}
 			for (let j = 0; j < model.ships5[i].hits.length; j++) {
 				model.ships5[i].hits[j] = "";
 			}
@@ -510,15 +615,16 @@ var view = {
 			}
 		}
 	},
-	clearScoreTable(){
-console.log("clearScoreTable");var playerResultRow = document.querySelectorAll(".playerResultRow");
-var rankingName = document.querySelectorAll(".ranking__name");
-var rankingScore = document.querySelectorAll(".ranking__score");
-for (let i = 0; i < model.ranking.length; i++) {
-	rankingName[i].innerHTML = "";
-	rankingScore[i].innerHTML = "";
-	playerResultRow[i].hidden = true;
-}
-model.ranking = [];
-},
+	clearScoreTable() {
+		console.log("clearScoreTable");
+		var playerResultRow = document.querySelectorAll(".playerResultRow");
+		var rankingName = document.querySelectorAll(".ranking__name");
+		var rankingScore = document.querySelectorAll(".ranking__score");
+		for (let i = 0; i < model.ranking.length; i++) {
+			rankingName[i].innerHTML = "";
+			rankingScore[i].innerHTML = "";
+			playerResultRow[i].hidden = true;
+		}
+		model.ranking = [];
+	},
 };

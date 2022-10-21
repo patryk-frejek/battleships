@@ -45,18 +45,60 @@ input {
 	border-radius: 0.3rem;
 	width: auto;
 }
-.settings{ 
-	position: relative;
-	display: flex;
-	flex-direction: row;
+.settings {
+	transition: all .5s ease-in;
+	border-radius: 2rem;
+	color: black;
+	font-weight: 700;
+	position: absolute;
+	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	z-index: 104;
+	z-index: 122;
+	top: 100px;
+	left: 50%;
+	transform: translate(-50%,90%);
+	padding: 5rem;
+	
+	display: none;
 }
-.settings label, .settings input {
+
+.settings-button {
+	position: relative;
+	font-size: 2rem;
+	display: inline-block;
+	background-color: darkgreen;
+	width: 100%;
+	height: 3rem;
+	/* color: white; */
+	text-decoration: none;
+	z-index: 150;
+	border: none;
+	border-radius: 0.8rem;
+	margin: 0.4rem 0;
+}
+.settings-button:hover {
+	background-color: greenyellow;
+	color: red;
+	text-decoration: none;
+}
+.settings-button:active {
+	transform: translateY(0.2rem);
+}
+
+.settings label,
+.settings input {
 	font-size: 1.6rem;
+	cursor: url(./BombCursor.png), auto;
 }
-#player-name{
+.settings-active {
+	transition: all 1s ease-in-out;	
+	display: flex;
+	cursor: url(./BombCursor.png), auto;
+	background-color: rgba(169, 169, 169, 0.85);
+}
+
+#player-name {
 	display: inline-block;
 	width: 80%;
 	height: 3rem;
@@ -64,8 +106,8 @@ input {
 	padding: 2rem 2 rem;
 	border-radius: 20%;
 	text-align: center;
-z-index: 105;
-position: relative;
+	z-index: 105;
+	position: relative;
 }
 
 button {
@@ -208,7 +250,7 @@ table.ranking tr td {
 .rstBtn:hover {
 	border: solid darkgreen 0.3rem;
 	transform: translateY(-0.1rem);
-	box-shadow: 0 .5rem 2rem rgb(0, 0, 0);
+	box-shadow: 0 0.5rem 2rem rgb(0, 0, 0);
 }
 .rstBtn:active {
 	border: solid darkgreen 0.3rem;
@@ -242,5 +284,3 @@ table.ranking tr td {
 		font-size: 75%;
 	}
 }
-
-
