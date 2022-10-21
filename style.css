@@ -46,7 +46,7 @@ input {
 	width: auto;
 }
 .settings {
-	transition: all .5s ease-in;
+	transition: all 0.5s ease-in;
 	border-radius: 2rem;
 	color: black;
 	font-weight: 700;
@@ -57,9 +57,9 @@ input {
 	z-index: 122;
 	top: 100px;
 	left: 50%;
-	transform: translate(-50%,90%);
+	transform: translate(-50%, 90%);
 	padding: 5rem;
-	
+
 	display: none;
 }
 
@@ -92,7 +92,7 @@ input {
 	cursor: url(./BombCursor.png), auto;
 }
 .settings-active {
-	transition: all 1s ease-in-out;	
+	transition: all 1s ease-in-out;
 	display: flex;
 	cursor: url(./BombCursor.png), auto;
 	background-color: rgba(169, 169, 169, 0.85);
