@@ -1,5 +1,5 @@
 window.onload = init;
-	
+
 function parseGuess(guess) {
 	var alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
 	//sprawdzenie czu pierwsza liczba zawiera sie w zakresie od 0 do 9
@@ -42,6 +42,7 @@ function init() {
 	fireButton.onclick = handleFireButton;
 	const rstButton = document.querySelector(".rstBtn");
 	rstButton.onclick = resetButton;
+	window.onkeydown = resetButton;
 	model.generateShipsLocations(model.shipLength);
 	var guessCell = document.querySelectorAll("#board td");
 	guessCell.forEach((element) => {
@@ -54,12 +55,35 @@ function init() {
 
 	const shipsLength = document.getElementById("ships-length");
 	shipsLength.value = model.shipLength;
-	shipsLength.onchange =  ()=> model.shipLength = shipsLength.value;;
-
+	shipsLength.onchange = () => {
+		model.shipLength = shipsLength.value;
+		if (shipsLength.value == 5 && model.boardSize < 5) {
+			model.boardSize = 5;
+			boardSize.value = 5;
+		}
+		view.clearScoreTable();
+	};
+	
 	const shipsNumber = document.getElementById("ships-number");
 	shipsNumber.value = model.numShips;
-	shipsNumber.onchange = () => model.numShips = shipsNumber.value;
-	;
+	shipsNumber.onchange = () => {
+		model.numShips = shipsNumber.value;
+			view.clearScoreTable();
+	};
+
+
+	const boardSize = document.getElementById("board-size");
+	boardSize.value = model.boardSize;
+	boardSize.onchange = () => {
+		if (shipsLength.value === 5 && model.boardSize < 5) {
+			model.boardSize = 5;
+			boardSize.value = 5;
+		} else {
+			model.boardSize = boardSize.value;
+		}
+		resetButton();
+			view.clearScoreTable();
+	};
 }
 
 function handleClickCell(eventObj) {
@@ -472,10 +496,29 @@ var view = {
 		model.ranking.sort((a, b) => {
 			return a.score - b.score;
 		});
-		for (let i = 0; i < model.ranking.length; i++) {
-			rankingName[i].innerHTML = model.ranking[i].name;
-			rankingScore[i].innerHTML = model.ranking[i].score;
-			playerResultRow[i].removeAttribute("hidden");
+		if (model.ranking.length < 5) {
+			for (let i = 0; i < model.ranking.length; i++) {
+				rankingName[i].innerHTML = model.ranking[i].name;
+				rankingScore[i].innerHTML = model.ranking[i].score;
+				playerResultRow[i].removeAttribute("hidden");
+			}
+		} else {
+			for (let i = 0; i < 5; i++) {
+				rankingName[i].innerHTML = model.ranking[i].name;
+				rankingScore[i].innerHTML = model.ranking[i].score;
+				playerResultRow[i].removeAttribute("hidden");
+			}
 		}
 	},
+	clearScoreTable(){
+console.log("clearScoreTable");var playerResultRow = document.querySelectorAll(".playerResultRow");
+var rankingName = document.querySelectorAll(".ranking__name");
+var rankingScore = document.querySelectorAll(".ranking__score");
+for (let i = 0; i < model.ranking.length; i++) {
+	rankingName[i].innerHTML = "";
+	rankingScore[i].innerHTML = "";
+	playerResultRow[i].hidden = true;
+}
+model.ranking = [];
+},
 };
