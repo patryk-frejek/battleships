@@ -122,12 +122,7 @@ button {
 	z-index: 100;
 	transform: translateZ(-1);
 }
-@media (hover: none) {
-	#ball {
-		width: 0rem;
-		height: 0rem;
-	}
-}
+
 div#board {
 	background-image: url("./vectora150200035.jpg");
 	background-size: contain;
@@ -288,5 +283,11 @@ table.ranking tr td {
 @media only screen and (min-width: 75em) {
 	html {
 		font-size: 75%;
+	}
+}
+@media (hover: none) {
+	#ball {
+		width: 0rem;
+		height: 0rem;
 	}
 }
