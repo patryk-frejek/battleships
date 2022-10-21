@@ -122,6 +122,12 @@ button {
 	z-index: 100;
 	transform: translateZ(-1);
 }
+@media (hover: none) {
+	#ball {
+		width: 0rem;
+		height: 0rem;
+	}
+}
 div#board {
 	background-image: url("./vectora150200035.jpg");
 	background-size: contain;
