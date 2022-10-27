@@ -85,12 +85,22 @@ function init() {
 	const boardSize = document.getElementById("board-size");
 	boardSize.value = model.boardSize;
 	boardSize.onchange = () => {
-		if (shipsLength.value == 5 && model.boardSize < 5) {
-			model.boardSize = 5;
-			boardSize.value = 5;
-		} else if (shipsLength.value == 4 && model.boardSize < 4) {
-			model.boardSize = 5;
-			boardSize.value = 5;
+		/*
+jeśli liczba statków lub długość statków większa
+od wielkości mapy zwiększ mapę by oba warunki były spełnione
+*/
+// TRZEBA ZROBIĆ COŚ PDOOBNEGO DLA POZOSTAŁYCH ZMIAN
+		if (
+			shipsLength.value > boardSize.value ||
+			shipsNumber.value > boardSize.value
+		) {
+			if (shipsLength.value < shipsNumber.value) {
+				model.boardSize = shipsNumber.value;
+			} else if (shipsLength.value > shipsNumber.value) {
+				model.boardSize = shipsLength.value;
+			} else {
+				model.boardSize = shipsLength.value;
+			}
 		} else {
 			model.boardSize = boardSize.value;
 		}
@@ -98,6 +108,7 @@ function init() {
 		view.clearScoreTable();
 	};
 }
+
 
 function handleClickCell(eventObj) {
 	var cell = eventObj.target;
